@@ -1,0 +1,30 @@
+@page "/Welcome"
+@model Quality_management_portal.Pages.Welcome.WelcomeModel
+
+@{
+    ViewData["Title"] = "Welcome";
+}
+
+<div class="welcome-container">
+
+    <div class="welcome-box">
+
+        <h1>Welcome to the portal, @Model.FirstName</h1>
+
+        <div class="welcome-buttons">
+
+            <a href="/Dashboard" class="continue-button">
+                Continue to Dashboard
+            </a>
+
+            <form method="post" asp-page-handler="Logout">
+                <button type="submit" class="logout-button">
+                    Logout
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

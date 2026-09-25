@@ -1,0 +1,134 @@
+@page "/Register"
+@model Quality_management_portal.Pages.Register.RegisterModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="register-container">
+
+    <div class="register-box">
+
+        <h1>New User Registration</h1>
+
+        <p class="register-subtitle">
+            Create your Quality Management Portal account
+        </p>
+
+        @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+        {
+            <div class="register-success">
+                @Model.SuccessMessage
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="register-error">
+                @Model.ErrorMessage
+            </div>
+        }
+
+        @if (!Model.OtpSent)
+        {
+            <form method="post" asp-page-handler="SendOtp">
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label>First Name</label>
+
+                        <input asp-for="FirstName"
+                               class="form-control"
+                               placeholder="Enter first name" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Last Name</label>
+
+                        <input asp-for="LastName"
+                               class="form-control"
+                               placeholder="Enter last name" />
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label>Username</label>
+
+                    <input asp-for="Username"
+                           class="form-control"
+                           placeholder="Enter username" />
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+
+                    <input asp-for="Password"
+                           type="password"
+                           class="form-control"
+                           placeholder="Enter password" />
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+
+                    <input asp-for="Email"
+                           type="email"
+                           class="form-control"
+                           placeholder="Enter email address" />
+                </div>
+
+                <div class="form-group">
+                    <label>Mobile Number</label>
+
+                    <input asp-for="MobileNumber"
+                           class="form-control"
+                           placeholder="Enter mobile number" />
+                </div>
+
+                <button type="submit" class="register-button">
+                    Send OTP
+                </button>
+
+            </form>
+        }
+        else
+        {
+            <div class="demo-otp">
+                Demo OTP: <strong>123456</strong>
+            </div>
+
+            <form method="post" asp-page-handler="VerifyOtp">
+
+                <input type="hidden" asp-for="FirstName" />
+                <input type="hidden" asp-for="LastName" />
+                <input type="hidden" asp-for="Username" />
+                <input type="hidden" asp-for="Password" />
+                <input type="hidden" asp-for="Email" />
+                <input type="hidden" asp-for="MobileNumber" />
+
+                <div class="form-group">
+                    <label>Enter OTP</label>
+
+                    <input asp-for="Otp"
+                           class="form-control"
+                           placeholder="Enter 6-digit OTP" />
+                </div>
+
+                <button type="submit" class="register-button">
+                    Verify & Register
+                </button>
+
+            </form>
+        }
+
+        <div class="register-login-link">
+            <a href="/Login">
+                Already have an account? Login
+            </a>
+        </div>
+
+    </div>
+
+</div>

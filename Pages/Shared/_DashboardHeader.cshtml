@@ -1,0 +1,43 @@
+<header class="dashboard-header">
+
+    <div class="portal-title">
+        Deliverable Status Tracker
+    </div>
+
+    <div class="user-area">
+
+        <span class="user-name">
+            @Model.FirstName
+        </span>
+
+        <img src="/images/profile.png"
+             alt="Profile"
+             class="profile-photo" />
+
+        <button type="button"
+                class="menu-button"
+                onclick="toggleUserMenu()">
+            ☰
+        </button>
+
+        <div id="userMenu" class="user-menu">
+
+            <a href="/Dashboard/Profile">
+                👤 Profile
+            </a>
+
+            <a href="/Dashboard/Settings">
+                ⚙ Settings
+            </a>
+
+            <form method="post" asp-page-handler="Logout">
+                <button type="submit">
+                    🚪 Logout
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+
+</header>

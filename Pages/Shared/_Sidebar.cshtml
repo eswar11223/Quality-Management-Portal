@@ -1,0 +1,64 @@
+@{
+    var currentPage = Context.Request.Path.Value ?? "";
+    var module = Context.Request.Query["module"].ToString().Trim();
+}
+
+<aside class="sidebar">
+
+    <div class="sidebar-logo">
+        QMS
+    </div>
+
+    <nav>
+
+        <!-- Dashboard -->
+        <a href="/Dashboard"
+           class="@(currentPage.Equals("/Dashboard", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
+            🏠 Dashboard
+        </a>
+
+        <!-- M & D -->
+        <a href="/MandD"
+           class="@(currentPage.Equals("/MandD", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
+            📊 M & D
+        </a>
+
+        <!-- My Tasks -->
+        <a href="/ComingSoon?module=My%20Tasks"
+           class="@(module.Equals("My Tasks", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
+            📋 My Tasks
+        </a>
+
+        <!-- My Team -->
+        <a href="/ComingSoon?module=My%20Team"
+           class="@(module.Equals("My Team", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
+            👥 My Team
+        </a>
+
+        <!-- Changes -->
+        <a href="/ComingSoon?module=Changes"
+           class="@(module.Equals("Changes", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
+            🔄 Changes
+        </a>
+
+        <!-- Time Sheets -->
+        <a href="/ComingSoon?module=Time%20Sheets"
+           class="@(module.Equals("Time Sheets", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
+            🕒 Time Sheets
+        </a>
+
+        <!-- Reports -->
+        <a href="/ComingSoon?module=Reports"
+           class="@(module.Equals("Reports", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
+            📈 Reports
+        </a>
+
+        <!-- Settings -->
+        <a href="/ComingSoon?module=Settings"
+           class="@(module.Equals("Settings", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
+            ⚙ Settings
+        </a>
+
+    </nav>
+
+</aside>

@@ -1,0 +1,112 @@
+@page "/ComingSoon"
+@model Quality_management_portal.Pages.ComingSoon.ComingSoonModel
+
+@{
+    ViewData["Title"] = Model.ModuleName;
+}
+
+<div class="dashboard-layout">
+
+    <header class="dashboard-header">
+
+        <div class="portal-title">
+            Deliverable Status Tracker
+        </div>
+
+        <div class="user-area">
+
+            <span class="user-name">
+                @Model.FirstName
+            </span>
+
+            <button type="button"
+                    class="menu-button"
+                    onclick="toggleUserMenu()">
+                ☰
+            </button>
+
+            <div id="userMenu" class="user-menu">
+
+                <a href="/Dashboard/Profile">
+                    👤 Profile
+                </a>
+
+                <a href="/Dashboard/Settings">
+                    ⚙ Settings
+                </a>
+
+                <form method="post" asp-page-handler="Logout">
+                    <button type="submit">
+                        🚪 Logout
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <div class="dashboard-body">
+
+        @await Html.PartialAsync("_Sidebar")
+
+
+        <main class="dashboard-content">
+
+            <h1 class="dashboard-welcome">
+                @Model.ModuleName
+            </h1>
+
+            <p class="dashboard-message">
+                This module is coming soon.
+            </p>
+
+        </main>
+
+    </div>
+
+
+    <footer class="dashboard-footer">
+        © 2026 i-ray IT Solutions. All rights reserved.
+    </footer>
+
+</div>
+
+
+<script>
+
+    function toggleUserMenu() {
+
+        var menu = document.getElementById("userMenu");
+
+        if (menu.style.display === "block") {
+
+            menu.style.display = "none";
+
+        } else {
+
+            menu.style.display = "block";
+
+        }
+
+    }
+
+
+    document.addEventListener("click", function (event) {
+
+        var menu = document.getElementById("userMenu");
+
+        var button = document.querySelector(".menu-button");
+
+        if (!menu.contains(event.target) &&
+            !button.contains(event.target)) {
+
+            menu.style.display = "none";
+
+        }
+
+    });
+
+</script>
