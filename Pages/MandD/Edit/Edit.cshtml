@@ -1,0 +1,292 @@
+@page "/MandD/Edit"
+@model Quality_management_portal.Pages.MandD.Edit.EditModel
+
+@{
+    ViewData["Title"] = "Edit M & D Record";
+}
+
+<div class="dashboard-layout">
+
+    @await Html.PartialAsync("_DashboardHeader")
+
+    <div class="dashboard-body">
+
+        @await Html.PartialAsync("_Sidebar")
+
+        <main class="dashboard-content">
+
+            <h1 class="dashboard-welcome">
+                Edit M & D Record
+            </h1>
+
+            <form method="post" class="mandd-edit-form">
+                @if (!ViewData.ModelState.IsValid)
+{
+    <div class="text-danger" style="margin-bottom: 20px;">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <div>@error.ErrorMessage</div>
+        }
+    </div>
+}
+
+                <input type="hidden" asp-for="RecordId" />
+                <input type="hidden" asp-for="SNo" />
+
+                <div class="mandd-form-row">
+                    <label>Record ID</label>
+                    <input type="text"
+                           value="@Model.RecordId"
+                           readonly />
+                </div>
+
+                <div class="mandd-form-row">
+                    <label>S.No</label>
+                    <input type="text"
+                           value="@Model.SNo"
+                           readonly />
+                </div>
+
+                <div class="mandd-form-row">
+                    <label asp-for="MilestoneName">
+                        Milestone Name
+                    </label>
+
+                    <input asp-for="MilestoneName" />
+
+                    <span asp-validation-for="MilestoneName"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mandd-form-row">
+                    <label asp-for="DeliverableName">
+                        Deliverable Name
+                    </label>
+
+                    <input asp-for="DeliverableName" />
+
+                    <span asp-validation-for="DeliverableName"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mandd-form-row">
+
+                    <label asp-for="DeliverableType">
+                       Deliverable Type
+                    </label>
+                    <div>
+
+                        <select asp-for="DeliverableType">
+                            <option value="">Select Deliverable Type</option>
+                            <option value="UGs">UGs</option>
+                            <option value="Clarification Doc">Clarification Doc</option>
+                            <option value="Data Sheets">Data Sheets</option>
+                            <option value="Other">Other</option>
+                        </select>
+
+                        <span asp-validation-for="DeliverableType"
+                            class="text-danger">
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="mandd-form-row">
+
+                    <label asp-for="CustomDeliverableType">
+                        Custom Deliverable Type
+                    </label>
+
+                <div>
+
+                    <input asp-for="CustomDeliverableType"
+                            placeholder="Enter custom Deliverable Type" />
+
+                    <span asp-validation-for="CustomDeliverableType"
+                        class="text-danger">
+                    </span>
+
+                </div>
+
+            </div>
+
+                <div class="mandd-form-row">
+                    <label asp-for="MilestoneTargetDate">
+                        Milestone Target Date
+                    </label>
+
+                    <input asp-for="MilestoneTargetDate"
+                           type="text" />
+
+                    <span asp-validation-for="MilestoneTargetDate"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mandd-form-row">
+                    <label asp-for="DeliverableTargetDate">
+                        Deliverable Target Date
+                    </label>
+
+                    <input asp-for="DeliverableTargetDate"
+                           type="text" />
+
+                    <span asp-validation-for="DeliverableTargetDate"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="mandd-form-row">
+                    <label asp-for="AssignedTo">Assigned To</label>
+
+                    <select asp-for="AssignedTo">
+                        <option value="">Select User</option>
+
+                        @foreach (var user in Model.RegisteredUsers)
+                        {
+                            <option value="@user">@user</option>
+                        }
+                    </select>
+
+                    <span asp-validation-for="AssignedTo" class="text-danger"></span>
+                </div>
+
+                <div class="mandd-form-row">
+                    <label asp-for="ScheduleDeviation">
+                        Any Schedule Deviation
+                    </label>
+
+                    <select asp-for="ScheduleDeviation">
+                        <option value="">Select</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <div class="mandd-form-row">
+                    <label asp-for="DeliverableActivity">
+                        Deliverable at Which Activity
+                    </label>
+
+                    <select asp-for="DeliverableActivity" multiple>
+                        <option value="GN">GN</option>
+                        <option value="AdHoc">AdHoc</option>
+                        <option value="Agile">Agile</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="mandd-form-row">
+                    <label asp-for="ScheduleDeviationReason">
+                        Reason for Schedule Deviation
+                    </label>
+
+                    <textarea asp-for="ScheduleDeviationReason"></textarea>
+                </div>
+
+                <div class="mandd-form-row">
+                    <label asp-for="ActualCompletedDate">
+                        Deliverable Actual Completed Date
+                    </label>
+
+                    <input asp-for="ActualCompletedDate"
+                            type="text"
+                            id="ActualCompletedDate"
+                            placeholder="DD-MM-YYYY" />
+                </div>
+
+                <div class="mandd-form-row">
+                    <label asp-for="MilestoneAchievedDate">
+                        Milestone Achieved Date
+                    </label>
+
+                    <input asp-for="MilestoneAchievedDate"
+                           type="text" />
+                </div>
+
+                <div class="mandd-form-row">
+                    <label asp-for="Status">
+                        Status
+                    </label>
+
+                <select asp-for="Status" id="Status">
+                    <option value="">Select Status</option>
+                    <option value="Not Started">Not Started</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Deferred">Deferred</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+
+                <span asp-validation-for="Status"
+                        class="text-danger"></span>
+            </div>
+
+                <div class="mandd-form-row">
+                    <label asp-for="Remarks">
+                        Remarks
+                    </label>
+
+                    <textarea asp-for="Remarks"></textarea>
+                </div>
+
+                <div class="mandd-edit-actions">
+
+                    <button type="submit"
+                            class="mandd-save-button">
+                        Save Changes
+                    </button>
+
+                    <a href="/MandD"
+                       class="mandd-back-button">
+                        Cancel
+                    </a>
+
+                </div>
+
+            </form>
+
+        </main>
+
+    </div>
+
+    <footer class="dashboard-footer">
+        © 2026 i-ray IT Solutions. All rights reserved.
+    </footer>
+
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const statusDropdown = document.getElementById("Status");
+        const completedDate = document.getElementById("ActualCompletedDate");
+
+        function updateCompletedDate() {
+
+            if (statusDropdown.value === "Completed") {
+
+                if (completedDate.value === "") {
+
+                    const today = new Date();
+
+                    const day = String(today.getDate()).padStart(2, "0");
+                    const month = String(today.getMonth() + 1).padStart(2, "0");
+                    const year = today.getFullYear();
+
+                    completedDate.value = day + "-" + month + "-" + year;
+                }
+
+            } else {
+
+                completedDate.value = "";
+            }
+        }
+
+        statusDropdown.addEventListener("change", updateCompletedDate);
+
+        // Also check the status when the page first loads
+        updateCompletedDate();
+
+    });
+</script>

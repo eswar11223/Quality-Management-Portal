@@ -815,3 +815,243 @@ body {
         gap: 15px;
     }
 }
+
+
+/* M & D table */
+
+.mandd-table-container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    box-sizing: border-box;
+}
+
+.mandd-table {
+    width: max-content;
+    min-width: 1500px;
+    border-collapse: collapse;
+}
+
+.mandd-table th,
+.mandd-table td {
+    padding: 12px 14px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.mandd-table th {
+    white-space: normal;
+    min-width: 100px;
+}
+
+.mandd-table td {
+    white-space: nowrap;
+}
+
+.mandd-table th:first-child,
+.mandd-table td:first-child {
+    min-width: 90px;
+}
+
+.mandd-table th:nth-child(3),
+.mandd-table td:nth-child(3),
+.mandd-table th:nth-child(4),
+.mandd-table td:nth-child(4) {
+    min-width: 160px;
+}
+
+.mandd-table th:nth-child(6),
+.mandd-table td:nth-child(6),
+.mandd-table th:nth-child(7),
+.mandd-table td:nth-child(7),
+.mandd-table th:nth-child(12),
+.mandd-table td:nth-child(12),
+.mandd-table th:nth-child(13),
+.mandd-table td:nth-child(13) {
+    min-width: 140px;
+}
+
+
+/* Keep the dashboard layout within the browser width */
+
+.dashboard-layout {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.dashboard-body {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.dashboard-content {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+
+/* M & D table scrolling */
+
+.mandd-table-container {
+    width: 100%;
+    max-height: 600px;
+    overflow-x: auto;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+}
+
+.mandd-table-container thead th {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: #123b73;
+    color: white;
+}
+
+.mandd-table {
+    width: max-content;
+    min-width: 1500px;
+    border-collapse: collapse;
+}
+
+.mandd-table th,
+.mandd-table td {
+    padding: 12px 14px;
+    text-align: left;
+}
+
+.mandd-table th {
+    white-space: normal;
+}
+
+.mandd-table td {
+    white-space: nowrap;
+}
+
+
+
+
+.mandd-view-container {
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #ffffff;
+}
+
+.mandd-view-row {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    border-bottom: 1px solid #ddd;
+    min-height: 50px;
+}
+
+.mandd-view-row:last-child {
+    border-bottom: none;
+}
+
+.mandd-view-row strong {
+    padding: 15px;
+    background: #f3f5f8;
+    color: #123b73;
+}
+
+.mandd-view-row span {
+    padding: 15px;
+    word-break: break-word;
+}
+
+.mandd-view-actions {
+    margin-top: 20px;
+}
+
+.mandd-back-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #123b73;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.mandd-back-button:hover {
+    background: #0d2d58;
+}
+
+
+.mandd-edit-form {
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 20px;
+    padding: 25px;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.mandd-form-row {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 15px;
+    align-items: start;
+    margin-bottom: 18px;
+}
+
+.mandd-form-row label {
+    padding-top: 10px;
+    font-weight: 600;
+    color: #123b73;
+}
+
+.mandd-form-row input,
+.mandd-form-row select,
+.mandd-form-row textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.mandd-form-row textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.mandd-form-row input[readonly] {
+    background: #f3f5f8;
+}
+
+.text-danger {
+    grid-column: 2;
+    color: #dc3545;
+    font-size: 13px;
+    margin-top: -10px;
+}
+
+.mandd-edit-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.mandd-save-button {
+    padding: 10px 22px;
+    border: none;
+    border-radius: 4px;
+    background: #123b73;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.mandd-save-button:hover {
+    background: #0d2d58;
+}

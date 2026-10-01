@@ -1,0 +1,121 @@
+@page "/MandD/View"
+@model Quality_management_portal.Pages.MandD.View.ViewModel
+
+@{
+    ViewData["Title"] = "View M & D Record";
+}
+
+<div class="dashboard-layout">
+
+    @await Html.PartialAsync("_DashboardHeader")
+
+    <div class="dashboard-body">
+
+        @await Html.PartialAsync("_Sidebar")
+
+        <main class="dashboard-content">
+
+            <h1 class="dashboard-welcome">
+                View M & D Record
+            </h1>
+
+            @if (Model.Record != null)
+            {
+                <div class="mandd-view-container">
+
+                    <div class="mandd-view-row">
+                        <strong>Record ID</strong>
+                        <span>@Model.Record.RecordId</span>
+                    </div>
+
+                    <div class="mandd-view-row">
+                        <strong>S.No</strong>
+                        <span>@Model.Record.SNo</span>
+                    </div>
+
+                    <div class="mandd-view-row">
+                        <strong>Milestone Name</strong>
+                        <span>@Model.Record.MilestoneName</span>
+                    </div>
+
+                    <div class="mandd-view-row">
+                        <strong>Deliverable Name</strong>
+                        <span>@Model.Record.DeliverableName</span>
+                    </div>
+
+                    <div class="mandd-view-row">
+                        <strong>Deliverable Type</strong>
+                        <span>@Model.Record.DeliverableType</span>
+                    </div>
+
+                    <div class="mandd-view-row">
+                        <strong>Milestone Target Date</strong>
+                        <span>@Model.Record.MilestoneTargetDate</span>
+                    </div>
+
+                    <div class="mandd-view-row">
+                        <strong>Deliverable Target Date</strong>
+                        <span>@Model.Record.DeliverableTargetDate</span>
+                    </div>
+
+                    <div class="mandd-view-row">
+                        <strong>Assigned To</strong>
+                        <span>@Model.Record.AssignedTo</span>
+                    </div>
+
+                    <div class="mandd-view-row">
+                        <strong>Any Schedule Deviation</strong>
+                        <span>@Model.Record.ScheduleDeviation</span>
+                    </div>
+
+                    <div class="mandd-view-row">
+                        <strong>Deliverable at Which Activity</strong>
+                        <span>@Model.Record.DeliverableActivity</span>
+                    </div>
+
+                    <div class="mandd-view-row">
+                        <strong>Reason for Schedule Deviation</strong>
+                        <span>@Model.Record.ScheduleDeviationReason</span>
+                    </div>
+
+                    <div class="mandd-view-row">
+                        <strong>Deliverable Actual Completed Date</strong>
+                        <span>@Model.Record.ActualCompletedDate</span>
+                    </div>
+
+                    <div class="mandd-view-row">
+                        <strong>Milestone Achieved Date</strong>
+                        <span>@Model.Record.MilestoneAchievedDate</span>
+                    </div>
+
+                    <div class="mandd-view-row">
+                        <strong>Status</strong>
+                        <span>@Model.Record.Status</span>
+                    </div>
+
+                    <div class="mandd-view-row">
+                        <strong>Remarks</strong>
+                        <span>@Model.Record.Remarks</span>
+                    </div>
+
+                </div>
+
+                <div class="mandd-view-actions">
+
+                    <a href="/MandD"
+                       class="mandd-back-button">
+                        Back to M & D
+                    </a>
+
+                </div>
+            }
+
+        </main>
+
+    </div>
+
+    <footer class="dashboard-footer">
+        © 2026 i-ray IT Solutions. All rights reserved.
+    </footer>
+
+</div>

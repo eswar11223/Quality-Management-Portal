@@ -7,8 +7,7 @@
 
 <div class="dashboard-layout">
 
-@await Html.PartialAsync("_DashboardHeader")
-
+    @await Html.PartialAsync("_DashboardHeader")
 
     <div class="dashboard-body">
 
@@ -20,54 +19,85 @@
                 M & D (Milestones & Delivery)
             </h1>
 
-            <p class="dashboard-message">
-                M & D module
-            </p>
+            <div class="mandd-table-container">
+
+                <table class="mandd-table">
+
+                    <thead>
+                        <tr>
+                            <th>Record ID</th>
+                            <th>S.No</th>
+                            <th>Milestone Name</th>
+                            <th>Deliverable Name</th>
+                            <th>Deliverable Type</th>
+                            <th>Milestone Target Date</th>
+                            <th>Deliverable Target Date</th>
+                            <th>Assigned To</th>
+                            <th>Any Schedule Deviation</th>
+                            <th>Deliverable at Which Activity</th>
+                            <th>Reason for Schedule Deviation</th>
+                            <th>Deliverable Actual Completed Date</th>
+                            <th>Milestone Achieved Date</th>
+                            <th>Status</th>
+                            <th>Remarks</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @if (Model.Records.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="16" class="no-records">
+                                    No M & D records found.
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var record in Model.Records)
+                            {
+                                <tr>
+                                    <td>@record.RecordId</td>
+                                    <td>@record.SNo</td>
+                                    <td>@record.MilestoneName</td>
+                                    <td>@record.DeliverableName</td>
+                                    <td>@record.DeliverableType</td>
+                                    <td>@record.MilestoneTargetDate</td>
+                                    <td>@record.DeliverableTargetDate</td>
+                                    <td>@record.AssignedTo</td>
+                                    <td>@record.ScheduleDeviation</td>
+                                    <td>@record.DeliverableActivity</td>
+                                    <td>@record.ScheduleDeviationReason</td>
+                                    <td>@record.ActualCompletedDate</td>
+                                    <td>@record.MilestoneAchievedDate</td>
+                                    <td>@record.Status</td>
+                                    <td>@record.Remarks</td>
+                                    <td>
+                                        <a href="/MandD/View?recordId=@record.RecordId">
+                                            View
+                                        </a>
+                                        <a href="/MandD/Edit?recordId=@record.RecordId">
+                                            Edit
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
 
         </main>
 
     </div>
-
 
     <footer class="dashboard-footer">
         © 2026 i-ray IT Solutions. All rights reserved.
     </footer>
 
 </div>
-
-
-<script>
-
-    function toggleUserMenu() {
-
-        var menu = document.getElementById("userMenu");
-
-        if (menu.style.display === "block") {
-
-            menu.style.display = "none";
-
-        } else {
-
-            menu.style.display = "block";
-
-        }
-
-    }
-
-
-    document.addEventListener("click", function (event) {
-
-        var menu = document.getElementById("userMenu");
-
-        var button = document.querySelector(".menu-button");
-
-        if (!menu.contains(event.target) &&
-            !button.contains(event.target)) {
-
-            menu.style.display = "none";
-
-        }
-
-    });
-
-</script>
