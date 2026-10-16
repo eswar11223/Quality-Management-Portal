@@ -1,0 +1,77 @@
+
+@page "/GlobalSearch"
+@model Quality_management_portal.Pages.GlobalSearch.GlobalSearchModel
+
+@{
+    ViewData["Title"] = "Global Search";
+}
+
+<div class="global-search-page">
+    <h1>Global Search Results</h1>
+
+    <form method="get" action="/GlobalSearch"
+          class="global-results-form">
+        <input type="text"
+               name="query"
+               value="@Model.Query"
+               placeholder="Search ID, milestone, deliverable, assignee, status..."
+               aria-label="Search records" />
+
+        <button type="submit">Search</button>
+    </form>
+
+    @if (string.IsNullOrWhiteSpace(Model.Query))
+    {
+        <p>Enter a search term to find M&amp;D records.</p>
+    }
+    else if (Model.Results.Count == 0)
+    {
+        <p>No records found for "@Model.Query".</p>
+    }
+    else
+    {
+        <p>
+            Found <strong>@Model.Results.Count</strong> matching record(s).
+        </p>
+
+        <div class="global-results-table-container">
+            <table class="global-results-table">
+                <thead>
+                    <tr>
+                        <th>Record ID</th>
+                        <th>Milestone</th>
+                        <th>Deliverable</th>
+                        <th>Type</th>
+                        <th>Assigned To</th>
+                        <th>Status</th>
+                        <th>Target Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var record in Model.Results)
+                    {
+                        <tr>
+                            <td>@record.RecordId</td>
+                            <td>@record.MilestoneName</td>
+                            <td>@record.DeliverableName</td>
+                            <td>@record.DeliverableType</td>
+                            <td>@record.AssignedTo</td>
+                            <td>@record.Status</td>
+                            <td>@record.TargetDate</td>
+                             <td>
+                                <a href="@Url.Content("~/MandD/View?recordId=" + Uri.EscapeDataString(record.RecordId))">
+                                    view
+                                </a>
+                                |
+                                <a href="@Url.Page("/MandD/Edit/Edit", new { recordId = record.RecordId })">
+                                    Edit
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

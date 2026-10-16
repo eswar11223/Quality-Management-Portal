@@ -5,6 +5,378 @@
     ViewData["Title"] = "M & D";
 }
 
+<style>
+
+    /* =========================================================
+       M&D PAGE
+       ========================================================= */
+
+    .mandd-page {
+        width: 100%;
+    }
+
+    .mandd-page-title {
+        background: #23458b;
+        color: white;
+        padding: 14px 16px;
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        border-radius: 0;
+    }
+
+    /* =========================================================
+       SEARCH AND FILTERS PANEL
+       ========================================================= */
+
+    .mandd-search-panel {
+        background: #ffffff;
+        border: 1px solid #d8d8d8;
+        padding: 16px;
+        margin-bottom: 16px;
+    }
+
+    .mandd-search-title {
+        color: #173f78;
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 14px;
+    }
+
+    .mandd-search-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+
+    .mandd-search-input {
+        flex: 1;
+        min-width: 250px;
+        height: 36px;
+        border: 1px solid #cccccc;
+        border-radius: 3px;
+        padding: 0 11px;
+        font-size: 14px;
+        outline: none;
+        box-sizing: border-box;
+    }
+
+    .mandd-search-input:focus {
+        border-color: #23458b;
+        box-shadow: 0 0 0 2px rgba(35, 69, 139, 0.10);
+    }
+
+    .mandd-button {
+        height: 36px;
+        border: none;
+        border-radius: 3px;
+        padding: 0 18px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        white-space: nowrap;
+    }
+
+    .mandd-search-button {
+        background: #23458b;
+        color: #ffffff;
+    }
+
+    .mandd-search-button:hover {
+        background: #19386f;
+    }
+
+    .mandd-clear-button {
+        background: #777777;
+        color: #ffffff;
+    }
+
+    .mandd-clear-button:hover {
+        background: #5f5f5f;
+    }
+
+    .mandd-export-button {
+        background: #198754;
+        color: #ffffff;
+    }
+
+    .mandd-export-button:hover {
+        background: #146c43;
+    }
+
+    /* =========================================================
+       FILTER ROW
+       ========================================================= */
+
+    .mandd-filter-row {
+        display: grid;
+        grid-template-columns:
+            1.25fr
+            1.25fr
+            1.15fr
+            1.25fr
+            1.35fr;
+        gap: 8px;
+    }
+
+    .mandd-filter-select {
+        width: 100%;
+        height: 36px;
+        border: 1px solid #cccccc;
+        border-radius: 3px;
+        padding: 0 9px;
+        background: #ffffff;
+        color: #333333;
+        font-size: 14px;
+        outline: none;
+        box-sizing: border-box;
+    }
+
+    .mandd-filter-select:focus {
+        border-color: #23458b;
+        box-shadow: 0 0 0 2px rgba(35, 69, 139, 0.10);
+    }
+
+    /* =========================================================
+       RESULT COUNT
+       ========================================================= */
+
+    .mandd-result-count {
+        font-size: 14px;
+        color: #444444;
+        margin-bottom: 10px;
+    }
+
+    .mandd-result-count strong {
+        color: #173f78;
+    }
+
+    /* =========================================================
+       TABLE
+       ========================================================= */
+
+    .mandd-table-container {
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: auto;
+        max-height: 600px;
+        border: 1px solid #d8d8d8;
+        background: #ffffff;
+    }
+
+    .mandd-table {
+        width: max-content;
+        min-width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+
+    .mandd-table th {
+        background: #23458b;
+        color: #ffffff;
+        padding: 10px 9px;
+        text-align: left;
+        font-weight: 600;
+        white-space: nowrap;
+        position: sticky;
+        top: 0;
+        z-index: 2;
+    }
+
+    .mandd-table td {
+        padding: 9px;
+        border-bottom: 1px solid #dddddd;
+        border-right: 1px solid #eeeeee;
+        white-space: nowrap;
+        color: #333333;
+    }
+
+    .mandd-table tbody tr:nth-child(even) {
+        background: #f8f8f8;
+    }
+
+    .mandd-table tbody tr:hover {
+        background: #eef3fb;
+    }
+
+    .mandd-table td:first-child {
+        font-weight: 600;
+        color: #173f78;
+    }
+
+    .mandd-actions {
+        display: flex;
+        gap: 8px;
+    }
+
+    .mandd-action-link {
+        text-decoration: none;
+        font-weight: 600;
+        color: #23458b;
+    }
+
+    .mandd-action-link:hover {
+        text-decoration: underline;
+    }
+
+    .no-records {
+        text-align: center;
+        padding: 25px !important;
+        color: #777777 !important;
+    }
+
+    /* =========================================================
+       OVERDUE
+       ========================================================= */
+
+    .mandd-overdue {
+        display: inline-block;
+        margin-left: 8px;
+        padding: 3px 7px;
+        background: #dc2626;
+        color: #ffffff;
+        border-radius: 3px;
+        font-size: 11px;
+        font-weight: 700;
+        vertical-align: middle;
+    }
+
+    /* =========================================================
+       EXPORT MESSAGE
+       ========================================================= */
+
+    .mandd-export-message {
+        display: none;
+        margin-top: 10px;
+        padding: 8px 10px;
+        background: #fff3cd;
+        border: 1px solid #ffe69c;
+        color: #664d03;
+        font-size: 13px;
+        border-radius: 3px;
+    }
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+
+    @@media (max-width: 1100px) {
+
+        .mandd-filter-row {
+            grid-template-columns:
+                repeat(3, 1fr);
+        }
+    }
+
+    @@media (max-width: 800px) {
+
+        .mandd-search-row {
+            flex-wrap: wrap;
+        }
+
+        .mandd-search-input {
+            width: 100%;
+            flex-basis: 100%;
+        }
+
+        .mandd-filter-row {
+            grid-template-columns:
+                repeat(2, 1fr);
+        }
+    }
+
+    @@media (max-width: 550px) {
+
+        .mandd-filter-row {
+            grid-template-columns: 1fr;
+        }
+
+        .mandd-button {
+            flex: 1;
+        }
+    }
+
+    /* Toolbar above the deliverable table */
+.mandd-toolbar {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 12px;
+}
+
+.mandd-create-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: #23458b;
+    color: #ffffff;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.mandd-create-button:hover {
+    background: #19386f;
+    color: #ffffff;
+}
+
+.mandd-create-button span {
+    font-size: 20px;
+    line-height: 1;
+}
+
+/* Table wrapper and maximize button */
+.mandd-table-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.mandd-maximize-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 10;
+    width: 34px;
+    height: 34px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    background: #ffffff;
+    color: #23458b;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.mandd-maximize-button:hover {
+    background: #eef3fb;
+}
+
+/* Expanded table */
+.mandd-table-wrapper.is-maximized {
+    position: fixed;
+    inset: 12px;
+    z-index: 9999;
+    width: auto;
+    padding: 48px 12px 12px;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    box-shadow: 0 0 0 200vmax rgba(0, 0, 0, 0.55);
+}
+
+.mandd-table-wrapper.is-maximized .mandd-table-container {
+    height: 100%;
+    max-height: none;
+    overflow: auto;
+}
+
+.mandd-table-wrapper.is-maximized .mandd-maximize-button {
+    top: 8px;
+    right: 8px;
+}
+
+</style>
+
+
 <div class="dashboard-layout">
 
     @await Html.PartialAsync("_DashboardHeader")
@@ -15,80 +387,479 @@
 
         <main class="dashboard-content">
 
-            <h1 class="dashboard-welcome">
-                M & D (Milestones & Delivery)
-            </h1>
+            <div class="mandd-page">
 
-            <div class="mandd-table-container">
+                <!-- =====================================================
+                     PAGE TITLE
+                     ===================================================== -->
 
-                <table class="mandd-table">
+                <div class="mandd-page-title">
+                    Milestones &amp; Deliverables
+                </div>
 
-                    <thead>
-                        <tr>
-                            <th>Record ID</th>
-                            <th>S.No</th>
-                            <th>Milestone Name</th>
-                            <th>Deliverable Name</th>
-                            <th>Deliverable Type</th>
-                            <th>Milestone Target Date</th>
-                            <th>Deliverable Target Date</th>
-                            <th>Assigned To</th>
-                            <th>Any Schedule Deviation</th>
-                            <th>Deliverable at Which Activity</th>
-                            <th>Reason for Schedule Deviation</th>
-                            <th>Deliverable Actual Completed Date</th>
-                            <th>Milestone Achieved Date</th>
-                            <th>Status</th>
-                            <th>Remarks</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
 
-                    <tbody>
+                <!-- =====================================================
+                     SEARCH AND FILTERS
+                     ===================================================== -->
 
-                        @if (Model.Records.Count == 0)
-                        {
+                <div class="mandd-search-panel">
+
+                    <div class="mandd-search-title">
+                        Search and Filters
+                    </div>
+
+
+                    <!-- SEARCH FORM -->
+
+                    <form id="manddSearchForm">
+
+                        <div class="mandd-search-row">
+
+                            <input
+                                type="text"
+                                name="SearchText"
+                                value="@Model.SearchText"
+                                class="mandd-search-input"
+                                id="manddSearchInput"
+                                placeholder="Search Milestone Name, Deliverable Name, Assigned To, or Status" />
+
+
+                            <button
+                                type="submit"
+                                class="mandd-button mandd-search-button"
+                                id="manddSearchButton">
+
+                                Search / Apply
+
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="mandd-button mandd-clear-button"
+                                id="manddClearButton">
+
+                                Clear
+
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="mandd-button mandd-export-button"
+                                id="manddExportButton">
+
+                                Export to Excel
+
+                            </button>
+
+                        </div>
+
+
+                        <!-- FILTERS -->
+
+                        <div class="mandd-filter-row">
+
+
+                            <!-- MILESTONE -->
+
+                            <select
+                                name="FilterMilestoneName"
+                                class="mandd-filter-select"
+                                id="manddMilestoneFilter">
+
+                                <option value="">
+                                    All Milestone Names
+                                </option>
+
+                                @foreach (var milestone in Model.MilestoneNames)
+                                {
+                                    if (String.Equals(
+                                        Model.FilterMilestoneName,
+                                        milestone,
+                                        StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        <option value="@milestone" selected>
+                                            @milestone
+                                        </option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@milestone">
+                                            @milestone
+                                        </option>
+                                    }
+                                }
+
+                            </select>
+
+
+                            <!-- ASSIGNED TO -->
+
+                            <select
+                                name="FilterAssignedTo"
+                                class="mandd-filter-select"
+                                id="manddAssignedFilter">
+
+                                <option value="">
+                                    All Assigned To
+                                </option>
+
+                                @foreach (var user in Model.AssignedUsers)
+                                {
+                                    if (String.Equals(
+                                        Model.FilterAssignedTo,
+                                        user,
+                                        StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        <option value="@user" selected>
+                                            @user
+                                        </option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@user">
+                                            @user
+                                        </option>
+                                    }
+                                }
+
+                            </select>
+
+
+                            <!-- STATUS -->
+
+                            <select
+                                name="FilterStatus"
+                                class="mandd-filter-select"
+                                id="manddStatusFilter">
+
+                                <option value="">
+                                    All Statuses
+                                </option>
+
+                                @foreach (var status in Model.Statuses)
+                                {
+                                    if (String.Equals(
+                                        Model.FilterStatus,
+                                        status,
+                                        StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        <option value="@status" selected>
+                                            @status
+                                        </option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@status">
+                                            @status
+                                        </option>
+                                    }
+                                }
+
+                            </select>
+
+
+                            <!-- DELIVERABLE TYPE -->
+
+                            <select
+                                name="FilterDeliverableType"
+                                class="mandd-filter-select"
+                                id="manddTypeFilter">
+
+                                <option value="">
+                                    All Deliverable Types
+                                </option>
+
+                                @foreach (var type in Model.DeliverableTypes)
+                                {
+                                    if (String.Equals(
+                                        Model.FilterDeliverableType,
+                                        type,
+                                        StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        <option value="@type" selected>
+                                            @type
+                                        </option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@type">
+                                            @type
+                                        </option>
+                                    }
+                                }
+
+                            </select>
+
+
+                            <!-- SCHEDULE DEVIATION -->
+
+                            <select
+                                name="FilterScheduleDeviation"
+                                class="mandd-filter-select"
+                                id="manddDeviationFilter">
+
+                                <option value="">
+                                    All Schedule Deviations
+                                </option>
+
+                                @if (String.Equals(
+                                    Model.FilterScheduleDeviation,
+                                    "Yes",
+                                    StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <option value="Yes" selected>
+                                        Yes
+                                    </option>
+                                }
+                                else
+                                {
+                                    <option value="Yes">
+                                        Yes
+                                    </option>
+                                }
+
+                                @if (String.Equals(
+                                    Model.FilterScheduleDeviation,
+                                    "No",
+                                    StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <option value="No" selected>
+                                        No
+                                    </option>
+                                }
+                                else
+                                {
+                                    <option value="No">
+                                        No
+                                    </option>
+                                }
+
+                            </select>
+
+                        </div>
+
+                    </form>
+
+
+                    <!-- EXPORT STATUS -->
+
+                    <div
+                        id="manddExportMessage"
+                        class="mandd-export-message">
+
+                        Preparing Excel export...
+
+                    </div>
+
+                </div>
+
+                <div class="mandd-toolbar">
+                    <a href="/MandD/Create" class="mandd-create-button">
+                        <span>+</span> Add New Deliverable
+                    </a>
+                </div>
+
+
+                <!-- =====================================================
+                     RESULT COUNT
+                     ===================================================== -->
+
+                <div class="mandd-result-count">
+
+                    Showing
+                    <strong id="manddResultCount">
+                        @Model.Records.Count
+                    </strong>
+                    record(s)
+
+                </div>
+
+
+                <!-- =====================================================
+                     TABLE
+                     ===================================================== -->
+
+                <div class="mandd-table-wrapper">
+                    <button type="button"
+                        id="manddMaximizeButton"
+                        class="mandd-maximize-button"
+                        title="Maximize table"
+                        aria-label="Maximize table"
+                        aria-pressed="false">
+                        ⛶
+                    </button>
+
+                    <div class="mandd-table-container" id="manddTableContainer">
+
+                    <table class="mandd-table">
+
+                        <thead>
+
                             <tr>
-                                <td colspan="16" class="no-records">
-                                    No M & D records found.
-                                </td>
+
+                                <th>Record ID</th>
+
+                                <th>S.No</th>
+
+                                <th>Milestone Name</th>
+
+                                <th>Deliverable Name</th>
+
+                                <th>Deliverable Type</th>
+
+                                <th>Milestone Target Date</th>
+
+                                <th>Deliverable Target Date</th>
+
+                                <th>Assigned To</th>
+
+                                <th>Any Schedule Deviation</th>
+
+                                <th>Deliverable at Which Activity</th>
+
+                                <th>Reason for Schedule Deviation</th>
+
+                                <th>Deliverable Actual Completed Date</th>
+
+                                <th>Milestone Achieved Date</th>
+
+                                <th>Status</th>
+
+                                <th>Remarks</th>
+
+                                <th>Actions</th>
+
                             </tr>
-                        }
-                        else
-                        {
-                            foreach (var record in Model.Records)
+
+                        </thead>
+
+
+                        <tbody id="manddTableBody">
+
+                            @if (Model.Records.Count == 0)
                             {
-                                <tr>
-                                    <td>@record.RecordId</td>
-                                    <td>@record.SNo</td>
-                                    <td>@record.MilestoneName</td>
-                                    <td>@record.DeliverableName</td>
-                                    <td>@record.DeliverableType</td>
-                                    <td>@record.MilestoneTargetDate</td>
-                                    <td>@record.DeliverableTargetDate</td>
-                                    <td>@record.AssignedTo</td>
-                                    <td>@record.ScheduleDeviation</td>
-                                    <td>@record.DeliverableActivity</td>
-                                    <td>@record.ScheduleDeviationReason</td>
-                                    <td>@record.ActualCompletedDate</td>
-                                    <td>@record.MilestoneAchievedDate</td>
-                                    <td>@record.Status</td>
-                                    <td>@record.Remarks</td>
-                                    <td>
-                                        <a href="/MandD/View?recordId=@record.RecordId">
-                                            View
-                                        </a>
-                                        <a href="/MandD/Edit?recordId=@record.RecordId">
-                                            Edit
-                                        </a>
+                                <tr id="initialNoRecordsRow">
+
+                                    <td
+                                        colspan="16"
+                                        class="no-records">
+
+                                        No M &amp; D records found.
+
                                     </td>
+
                                 </tr>
                             }
-                        }
+                            else
+                            {
+                                foreach (var record in Model.Records)
+                                {
+                                    <tr class="mandd-data-row">
 
-                    </tbody>
+                                        <td>
+                                            @record.RecordId
+                                        </td>
 
-                </table>
+                                        <td>
+                                            @record.SNo
+                                        </td>
+
+                                        <td>
+                                            @record.MilestoneName
+                                        </td>
+
+                                        <td>
+                                            @record.DeliverableName
+                                        </td>
+
+                                        <td>
+                                            @record.DeliverableType
+                                        </td>
+
+                                        <td>
+                                            @record.MilestoneTargetDate
+                                        </td>
+
+                                        <td>
+
+                                            @record.DeliverableTargetDate
+
+                                            @if (record.IsOverdue)
+                                            {
+                                                <span class="mandd-overdue">
+                                                    Overdue
+                                                </span>
+                                            }
+
+                                        </td>
+
+                                        <td>
+                                            @record.AssignedTo
+                                        </td>
+
+                                        <td>
+                                            @record.ScheduleDeviation
+                                        </td>
+
+                                        <td>
+                                            @record.DeliverableActivity
+                                        </td>
+
+                                        <td>
+                                            @record.ScheduleDeviationReason
+                                        </td>
+
+                                        <td>
+                                            @record.ActualCompletedDate
+                                        </td>
+
+                                        <td>
+                                            @record.MilestoneAchievedDate
+                                        </td>
+
+                                        <td>
+                                            @record.Status
+                                        </td>
+
+                                        <td>
+                                            @record.Remarks
+                                        </td>
+
+                                        <td>
+
+                                            <div class="mandd-actions">
+
+                                                <a
+                                                    class="mandd-action-link"
+                                                    href="/MandD/View?recordId=@record.RecordId">
+
+                                                    View
+
+                                                </a>
+
+                                                <a
+                                                    class="mandd-action-link"
+                                                    href="/MandD/Edit?recordId=@record.RecordId">
+
+                                                    Edit
+
+                                                </a>
+
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+
+                    </table>
+                    </div>
+                </div>
 
             </div>
 
@@ -96,8 +867,619 @@
 
     </div>
 
+
+    <!-- =============================================================
+         FOOTER
+         ============================================================= -->
+
     <footer class="dashboard-footer">
+
         © 2026 i-ray IT Solutions. All rights reserved.
+
     </footer>
 
 </div>
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        /* =========================================================
+           GET ELEMENTS
+           ========================================================= */
+
+        const searchForm =
+            document.getElementById("manddSearchForm");
+
+        const searchInput =
+            document.getElementById("manddSearchInput");
+
+        const searchButton =
+            document.getElementById("manddSearchButton");
+
+        const clearButton =
+            document.getElementById("manddClearButton");
+
+        const exportButton =
+            document.getElementById("manddExportButton");
+
+        const exportMessage =
+            document.getElementById("manddExportMessage");
+
+        const milestoneFilter =
+            document.getElementById("manddMilestoneFilter");
+
+        const assignedFilter =
+            document.getElementById("manddAssignedFilter");
+
+        const statusFilter =
+            document.getElementById("manddStatusFilter");
+
+        const typeFilter =
+            document.getElementById("manddTypeFilter");
+
+        const deviationFilter =
+            document.getElementById("manddDeviationFilter");
+
+        const tableBody =
+            document.getElementById("manddTableBody");
+
+        const resultCount =
+            document.getElementById("manddResultCount");
+
+
+        /* =========================================================
+           CHECK REQUIRED ELEMENTS
+           ========================================================= */
+
+        if (!searchInput ||
+            !searchButton ||
+            !clearButton ||
+            !exportButton ||
+            !milestoneFilter ||
+            !assignedFilter ||
+            !statusFilter ||
+            !typeFilter ||
+            !deviationFilter ||
+            !tableBody) {
+
+            console.error(
+                "M&D page elements could not be found."
+            );
+
+            return;
+        }
+
+
+        /* =========================================================
+           APPLY SEARCH AND FILTERS
+           ========================================================= */
+
+        function applyMandDFilters() {
+
+            const searchText =
+                searchInput.value
+                    .trim()
+                    .toLowerCase();
+
+            const milestoneValue =
+                milestoneFilter.value
+                    .trim()
+                    .toLowerCase();
+
+            const assignedValue =
+                assignedFilter.value
+                    .trim()
+                    .toLowerCase();
+
+            const statusValue =
+                statusFilter.value
+                    .trim()
+                    .toLowerCase();
+
+            const typeValue =
+                typeFilter.value
+                    .trim()
+                    .toLowerCase();
+
+            const deviationValue =
+                deviationFilter.value
+                    .trim()
+                    .toLowerCase();
+
+
+            const tableRows =
+                tableBody.querySelectorAll(
+                    ".mandd-data-row"
+                );
+
+
+            let visibleCount = 0;
+
+
+            tableRows.forEach(function (row) {
+
+                const cells = row.cells;
+
+
+                if (cells.length < 16) {
+                    return;
+                }
+
+
+                /*
+                 * Column positions:
+                 *
+                 * 0  = Record ID
+                 * 1  = S.No
+                 * 2  = Milestone Name
+                 * 3  = Deliverable Name
+                 * 4  = Deliverable Type
+                 * 5  = Milestone Target Date
+                 * 6  = Deliverable Target Date
+                 * 7  = Assigned To
+                 * 8  = Schedule Deviation
+                 * 9  = Activity
+                 * 10 = Reason
+                 * 11 = Actual Completed Date
+                 * 12 = Milestone Achieved Date
+                 * 13 = Status
+                 * 14 = Remarks
+                 * 15 = Actions
+                 */
+
+
+                const milestone =
+                    cells[2].textContent
+                        .trim()
+                        .toLowerCase();
+
+                const deliverable =
+                    cells[3].textContent
+                        .trim()
+                        .toLowerCase();
+
+                const deliverableType =
+                    cells[4].textContent
+                        .trim()
+                        .toLowerCase();
+
+                const assignedTo =
+                    cells[7].textContent
+                        .trim()
+                        .toLowerCase();
+
+                const scheduleDeviation =
+                    cells[8].textContent
+                        .trim()
+                        .toLowerCase();
+
+                const status =
+                    cells[13].textContent
+                        .trim()
+                        .toLowerCase();
+
+
+                /* =================================================
+                   COMBINED SEARCH
+                   ================================================= */
+
+                const searchMatches =
+                    searchText === "" ||
+                    milestone.includes(searchText) ||
+                    deliverable.includes(searchText) ||
+                    assignedTo.includes(searchText) ||
+                    status.includes(searchText);
+
+
+                /* =================================================
+                   FILTERS
+                   ================================================= */
+
+                const milestoneMatches =
+                    milestoneValue === "" ||
+                    milestone === milestoneValue;
+
+                const assignedMatches =
+                    assignedValue === "" ||
+                    assignedTo === assignedValue;
+
+                const statusMatches =
+                    statusValue === "" ||
+                    status === statusValue;
+
+                const typeMatches =
+                    typeValue === "" ||
+                    deliverableType === typeValue;
+
+                const deviationMatches =
+                    deviationValue === "" ||
+                    scheduleDeviation === deviationValue;
+
+
+                /* =================================================
+                   FINAL RESULT
+                   ================================================= */
+
+                const shouldDisplay =
+                    searchMatches &&
+                    milestoneMatches &&
+                    assignedMatches &&
+                    statusMatches &&
+                    typeMatches &&
+                    deviationMatches;
+
+
+                if (shouldDisplay) {
+
+                    row.style.display = "";
+
+                    visibleCount++;
+
+                }
+                else {
+
+                    row.style.display = "none";
+
+                }
+
+            });
+
+
+            /* =================================================
+               RESULT COUNT
+               ================================================= */
+
+            if (resultCount) {
+
+                resultCount.textContent =
+                    visibleCount;
+
+            }
+
+
+            /* =================================================
+               NO RESULTS ROW
+               ================================================= */
+
+            let noResultsRow =
+                document.getElementById(
+                    "manddNoResultsRow"
+                );
+
+
+            if (visibleCount === 0) {
+
+                if (!noResultsRow) {
+
+                    noResultsRow =
+                        document.createElement("tr");
+
+                    noResultsRow.id =
+                        "manddNoResultsRow";
+
+                    noResultsRow.innerHTML =
+                        '<td colspan="16" class="no-records">' +
+                        'No M &amp; D records found.' +
+                        '</td>';
+
+                    tableBody.appendChild(
+                        noResultsRow
+                    );
+
+                }
+
+                noResultsRow.style.display = "";
+
+            }
+            else {
+
+                if (noResultsRow) {
+
+                    noResultsRow.style.display =
+                        "none";
+
+                }
+
+            }
+
+        }
+
+
+        /* =========================================================
+           SEARCH BUTTON
+           ========================================================= */
+
+        searchButton.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                applyMandDFilters();
+
+            }
+        );
+
+
+        /* =========================================================
+           PREVENT FORM RELOAD
+           ========================================================= */
+
+        if (searchForm) {
+
+            searchForm.addEventListener(
+                "submit",
+                function (event) {
+
+                    event.preventDefault();
+
+                    applyMandDFilters();
+
+                }
+            );
+
+        }
+
+
+        /* =========================================================
+           FILTER DROPDOWNS
+           ========================================================= */
+
+        milestoneFilter.addEventListener(
+            "change",
+            applyMandDFilters
+        );
+
+        assignedFilter.addEventListener(
+            "change",
+            applyMandDFilters
+        );
+
+        statusFilter.addEventListener(
+            "change",
+            applyMandDFilters
+        );
+
+        typeFilter.addEventListener(
+            "change",
+            applyMandDFilters
+        );
+
+        deviationFilter.addEventListener(
+            "change",
+            applyMandDFilters
+        );
+
+
+        /* =========================================================
+           ENTER KEY
+           ========================================================= */
+
+        searchInput.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (event.key === "Enter") {
+
+                    event.preventDefault();
+
+                    applyMandDFilters();
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           CLEAR
+           ========================================================= */
+
+        clearButton.addEventListener(
+            "click",
+            function () {
+
+                searchInput.value = "";
+
+                milestoneFilter.value = "";
+
+                assignedFilter.value = "";
+
+                statusFilter.value = "";
+
+                typeFilter.value = "";
+
+                deviationFilter.value = "";
+
+
+                const tableRows =
+                    tableBody.querySelectorAll(
+                        ".mandd-data-row"
+                    );
+
+
+                tableRows.forEach(
+                    function (row) {
+
+                        row.style.display = "";
+
+                    }
+                );
+
+
+                const noResultsRow =
+                    document.getElementById(
+                        "manddNoResultsRow"
+                    );
+
+
+                if (noResultsRow) {
+
+                    noResultsRow.style.display =
+                        "none";
+
+                }
+
+
+                if (resultCount) {
+
+                    resultCount.textContent =
+                        tableRows.length;
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           EXPORT TO EXCEL
+           ========================================================= */
+
+        exportButton.addEventListener(
+            "click",
+            function () {
+
+                /*
+                 * Show message
+                 */
+
+                if (exportMessage) {
+
+                    exportMessage.style.display =
+                        "block";
+
+                    exportMessage.textContent =
+                        "Preparing Excel export...";
+
+                }
+
+
+                /*
+                 * Read current search/filter values
+                 */
+
+                const searchText =
+                    searchInput.value.trim();
+
+                const milestoneValue =
+                    milestoneFilter.value;
+
+                const assignedValue =
+                    assignedFilter.value;
+
+                const statusValue =
+                    statusFilter.value;
+
+                const typeValue =
+                    typeFilter.value;
+
+                const deviationValue =
+                    deviationFilter.value;
+
+
+                /*
+                 * Build query string
+                 */
+
+                const params =
+                    new URLSearchParams();
+
+
+                params.append(
+                    "SearchText",
+                    searchText
+                );
+
+                params.append(
+                    "FilterMilestoneName",
+                    milestoneValue
+                );
+
+                params.append(
+                    "FilterAssignedTo",
+                    assignedValue
+                );
+
+                params.append(
+                    "FilterStatus",
+                    statusValue
+                );
+
+                params.append(
+                    "FilterDeliverableType",
+                    typeValue
+                );
+
+                params.append(
+                    "FilterScheduleDeviation",
+                    deviationValue
+                );
+
+
+                /*
+                 * IMPORTANT:
+                 *
+                 * This calls the Razor Pages handler:
+                 *
+                 * OnGetExportToExcel()
+                 */
+
+                const exportUrl =
+                    "/MandD?handler=ExportToExcel&" +
+                    params.toString();
+
+
+                /*
+                 * Navigate to the export handler.
+                 *
+                 * The server will return the Excel file.
+                 */
+
+                window.location.href =
+                    exportUrl;
+
+            }
+        );
+
+
+        /*
+         * Initial filtering
+         */
+
+        applyMandDFilters();
+
+    });
+
+    const manddTableWrapper =
+    document.querySelector(".mandd-table-wrapper");
+
+    const manddMaximizeButton =
+    document.getElementById("manddMaximizeButton");
+
+if (manddTableWrapper && manddMaximizeButton) {
+    manddMaximizeButton.addEventListener("click", function () {
+        const isMaximized =
+            manddTableWrapper.classList.toggle("is-maximized");
+
+        manddMaximizeButton.textContent =
+            isMaximized ? "×" : "⛶";
+
+        manddMaximizeButton.title =
+            isMaximized ? "Restore table" : "Maximize table";
+
+        manddMaximizeButton.setAttribute(
+            "aria-label",
+            isMaximized ? "Restore table" : "Maximize table"
+        );
+
+        manddMaximizeButton.setAttribute(
+            "aria-pressed",
+            String(isMaximized)
+        );
+    });
+}
+
+</script>

@@ -1055,3 +1055,245 @@ body {
 .mandd-save-button:hover {
     background: #0d2d58;
 }
+
+
+
+.logo {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.logo img {
+    max-width: 170px;
+    max-height: 80px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+
+
+
+/* Global Search in the dashboard header */
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.portal-title {
+    flex-shrink: 0;
+}
+
+.global-search {
+    position: relative;
+    flex: 1;
+    max-width: 500px;
+    min-width: 180px;
+}
+
+.global-search form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.global-search input {
+    flex: 1;
+    min-width: 0;
+    height: 38px;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+}
+
+.global-search input:focus {
+    border-color: #23458b;
+    box-shadow: 0 0 0 2px rgba(35, 69, 139, 0.15);
+}
+
+.global-search-button {
+    height: 38px;
+    padding: 0 16px;
+    border: none;
+    border-radius: 5px;
+    background: #173f77;
+    color: #ffffff;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.global-search-button:hover {
+    background: #0f2f5b;
+}
+
+.global-search-suggestions {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    max-height: 300px;
+    overflow-y: auto;
+    background: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+@media (max-width: 850px) {
+    .dashboard-header {
+        flex-wrap: wrap;
+    }
+
+    .global-search {
+        order: 3;
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+}
+
+
+
+.global-search-page {
+    padding: 24px;
+    background: #fff;
+    border-radius: 8px;
+    color: #173f77;
+}
+
+.global-results-form {
+    display: flex;
+    gap: 8px;
+    margin: 16px 0;
+    max-width: 800px;
+}
+
+.global-results-form input {
+    flex: 1;
+    min-width: 0;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+.global-results-form button {
+    padding: 10px 18px;
+    background: #173f77;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.global-results-table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.global-results-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #263238;
+}
+
+.global-results-table th,
+.global-results-table td {
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.global-results-table th {
+    background: #173f77;
+    color: white;
+}
+
+.global-results-table tbody tr:nth-child(even) {
+    background: #f5f7fa;
+}
+
+.global-search-suggestions a {
+    display: block;
+    padding: 10px 12px;
+    color: #173f77;
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
+}
+
+.global-search-suggestions a:hover {
+    background: #eef3fb;
+}
+
+
+/* Prevent the default page wrapper from creating unwanted space */
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+}
+
+body {
+    margin-bottom: 0;
+}
+
+body > main {
+    width: 100%;
+    min-width: 0;
+}
+
+.dashboard-layout {
+    width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.dashboard-body {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    align-items: stretch;
+}
+
+.sidebar {
+    flex: 0 0 240px;
+    width: 240px;
+    box-sizing: border-box;
+}
+
+.dashboard-content {
+    flex: 1 1 0;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+    .sidebar {
+        flex-basis: 200px;
+        width: 200px;
+    }
+}
+
+@media (max-width: 650px) {
+    .dashboard-body {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+}

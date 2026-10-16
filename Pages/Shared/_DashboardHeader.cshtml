@@ -1,9 +1,34 @@
+
 <header class="dashboard-header">
 
     <div class="portal-title">
         Deliverable Status Tracker
     </div>
 
+    <!-- Global Search -->
+    <div class="global-search">
+        <form method="get" action="/GlobalSearch" id="globalSearchForm">
+
+            <input type="text"
+                   id="globalSearchInput"
+                   name="query"
+                   placeholder="Global Search"
+                   autocomplete="off"
+                   aria-label="Global Search" />
+
+            <button type="submit" class="global-search-button">
+                🔍 Search
+            </button>
+
+        </form>
+
+        <div id="globalSearchSuggestions"
+             class="global-search-suggestions"
+             hidden>
+        </div>
+    </div>
+
+    <!-- Existing User Menu -->
     <div class="user-area">
 
         <span class="user-name">
@@ -41,3 +66,104 @@
     </div>
 
 </header>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const input = document.getElementById("globalSearchInput");
+    const suggestions = document.getElementById("globalSearchSuggestions");
+    const form = document.getElementById("globalSearchForm");
+
+    if (!input || !suggestions || !form) return;
+
+    let timer;
+
+    input.addEventListener("input", function () {
+        clearTimeout(timer);
+
+        const query = input.value.trim();
+
+        if (query.length < 2) {
+            suggestions.replaceChildren();
+            suggestions.hidden = true;
+            return;
+        }
+
+        timer = setTimeout(async function () {
+            try {
+                const url = "/GlobalSearch?handler=Suggestions&query="
+                    + encodeURIComponent(query);
+
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    suggestions.replaceChildren();
+                    suggestions.hidden = true;
+                    return;
+                }
+
+                const records = await response.json();
+                suggestions.replaceChildren();
+
+                if (records.length === 0) {
+                    const message = document.createElement("div");
+                    message.className = "search-message";
+                    message.textContent = "No matching records found.";
+                    suggestions.appendChild(message);
+                } else {
+                    records.forEach(function (record) {
+                        const link = document.createElement("a");
+
+                        link.href = "/MandD/View?recordId="
+                            + encodeURIComponent(record.recordId);
+
+                        const title = record.deliverableName
+                            || record.milestoneName
+                            || record.recordId;
+
+                        link.textContent = record.recordId + " — " + title;
+
+                        const details = document.createElement("div");
+                        details.className = "search-message";
+                        details.textContent =
+                            (record.milestoneName || "")
+                            + " | " + (record.assignedTo || "")
+                            + " | " + (record.status || "");
+
+                        link.appendChild(details);
+                        suggestions.appendChild(link);
+                    });
+                }
+
+                suggestions.hidden = false;
+            } catch (error) {
+                console.error("Global Search failed:", error);
+                suggestions.replaceChildren();
+                suggestions.hidden = true;
+            }
+        }, 250);
+    });
+
+    form.addEventListener("submit", function (event) {
+        if (!input.value.trim()) {
+            
+            event.preventDefault();
+            input.focus();
+        }
+    });
+
+    document.addEventListener("click", function (event) {
+        if (!event.target.closest(".global-search")) {
+            suggestions.hidden = true;
+        }
+    });
+
+    input.addEventListener("focus", function () {
+        if (suggestions.childElementCount > 0) {
+            suggestions.hidden = false;
+        }
+    });
+});
+</script>
+

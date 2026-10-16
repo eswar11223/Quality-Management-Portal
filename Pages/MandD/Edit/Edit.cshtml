@@ -262,12 +262,12 @@
         const statusDropdown = document.getElementById("Status");
         const completedDate = document.getElementById("ActualCompletedDate");
 
+        
         function updateCompletedDate() {
+            if (!statusDropdown || !completedDate) return;
 
             if (statusDropdown.value === "Completed") {
-
                 if (completedDate.value === "") {
-
                     const today = new Date();
 
                     const day = String(today.getDate()).padStart(2, "0");
@@ -276,12 +276,11 @@
 
                     completedDate.value = day + "-" + month + "-" + year;
                 }
-
             } else {
-
                 completedDate.value = "";
             }
         }
+
 
         statusDropdown.addEventListener("change", updateCompletedDate);
 
